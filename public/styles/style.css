@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #121212;
+}
+
+header {
+    width: 100vw;
+    height: 65px;
+    background-color: #000;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-family: "Bebas Neue", sans-serif;
+    user-select: none;
+    justify-content: space-between;
+}
+
+#titleDiv span:hover {
+    color: #ef233c;
+    transition: 0.3s;
+}
+
+#titleDiv span {
+    color: white;
+    cursor: pointer;
+    transition: 0.5s
+}
+
+#titleDiv {
+    font-size: 1.5rem;
+    margin-left: 30px;
+    letter-spacing: -0.1rem;
+}
+
+#signInDiv {
+    margin-right: 30px
+}
+
+#signInDiv button {
+    padding: 6px 25px;
+    font-family: "Jost", sans-serif;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 1rem; 
+    cursor: pointer;
+    border: none;
+    transition: 1s background-color, 1s color
+}
+
+#signInDiv button:hover {
+    background-color: #ef233c;
+    color: white;
+    transition: 0.5s background-color, 0.5s color;
+}
