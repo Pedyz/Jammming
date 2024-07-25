@@ -19,6 +19,9 @@ header {
     font-family: "Bebas Neue", sans-serif;
     user-select: none;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 80;
 }
 
 #titleDiv span:hover {
@@ -42,19 +45,9 @@ header {
     margin-right: 30px
 }
 
-#signInDiv button {
-    padding: 6px 25px;
-    font-family: "Jost", sans-serif;
-    font-weight: bold;
-    border-radius: 20px;
-    font-size: 1rem; 
-    cursor: pointer;
-    border: none;
-    transition: 1s background-color, 1s color
-}
-
-#signInDiv button:hover {
-    background-color: #ef233c;
-    color: white;
-    transition: 0.5s background-color, 0.5s color;
+main {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    top: 0
 }
