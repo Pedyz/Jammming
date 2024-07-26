@@ -1,4 +1,4 @@
-import Styles from './styles.css'
+import Styles from './AuthBtn.module.css'
 import { useEffect, useState } from 'react'
 
 function AuthBtn() {
@@ -31,7 +31,7 @@ function AuthBtn() {
     
     return (
         <div>
-            {!token ? <button onClick={authAccount} className={Styles.button} id="signInBtn">Sign In</button> : <button onClick={logOut} className={Styles.button} id="signInBtn">Logout</button>}
+            {!token ? <button onClick={authAccount} className={Styles.btn} id="signInBtn">Sign In</button> : <button onClick={logOut} className={Styles.btn} id="signInBtn">Logout</button>}
         </div>
     ) 
     
