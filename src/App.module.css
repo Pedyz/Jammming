@@ -56,6 +56,7 @@
     overflow: auto;
     font-family: "Jost", sans-serif;
     color: white;
+    position: relative;
 }
 
 .column::-webkit-scrollbar {
@@ -92,6 +93,8 @@
     margin-bottom: 15px;
     cursor: pointer;
     transition: background-color 1s;
+    border-radius: 5px 0px 0px 5px;
+    user-select: none;
 }
 
 .song:hover {
@@ -113,6 +116,7 @@
 .albumImg {
     width: 100px;
     height: 100px;
+    border-radius: 5px
 }
 
 

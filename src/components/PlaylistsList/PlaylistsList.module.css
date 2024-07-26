@@ -1,8 +1,8 @@
-.playlistsList {
+.playlistsList, .topDiv {
     user-select: none;
 }
 
-.playlistsItem {
+.playlistsItem, .tracksItem {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -10,6 +10,7 @@
     cursor: pointer;
     width: 490px;
     transition: background-color 1s;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .playlistsItem:hover {
@@ -22,8 +23,68 @@
     transition: background-color 0s;
 }
 
-.playlistsList img {
+.playlistsList img, .tracksItem img {
+    border-radius: 5px;
     width: 100px;
     height: 100px;
     margin-right: 10px
+}
+
+.topDiv {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tracksList {
+    position: relative;
+    top: 55px;
+}
+
+#trackH2 {
+    position: relative;
+    top: 50px
+}
+
+.backButton {
+    border: none;
+    font-size: 1.2rem;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-family: "Jost", sans-serif;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.playlistIcon {
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    margin-top: 25px
+}
+
+.nameInput {
+    font-size: 1.5rem;
+    background-color: #00000000;
+    font-family: "Jost", sans-serif;
+    padding: 7px 15px;
+    border: none;
+    border-bottom: 1px solid rgb(187, 187, 187);
+    color: white;
+    width: 250px;
+    margin-bottom: 40px;
+    margin-top: 25px;
+    border-radius: 5px; 
+    text-align: center;
+    transition: border-bottom 1s, background-color 1s
+}
+
+.nameInput:focus {
+    outline: none;
+    border-bottom: 1px solid #ef233c;
+    background-color: #212121;
+    transition: border-bottom 0.5s, background-color 0.5s;
 }
