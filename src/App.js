@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import AuthBtn from './components/Auth/AuthBtn'
 import SearchBar from './components/SearchBar/SearchBar'
+import PlaylistsList from './components/PlaylistsList/PlaylistsList'
 import Style from "./App.module.css"
+
 
 function App() {
     const [token, setToken] = useState('')
@@ -56,7 +58,7 @@ function App() {
                 </div>
 
                 <div className={Style.column}>
-
+                    <PlaylistsList/>
                 </div> 
             </div>
             }
