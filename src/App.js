@@ -10,15 +10,20 @@ function App() {
 
     useEffect(() => {
         const hash = window.location.hash
-        let token = window.localStorage.getItem('token')
+        let key = window.localStorage.getItem('token')
 
-        if (!token && hash) {
-            token = hash.substring(1).split('&').find(elem => elem.startsWith("access_token")).split('=')[1]
+        if(key) {
+            setToken(key)
+        }
+        
+
+        if (!key && hash) {
+            key = hash.substring(1).split('&').find(elem => elem.startsWith("access_token")).split('=')[1]
 
             window.location.hash = ''
-            window.localStorage.setItem('token', token)
+            window.localStorage.setItem('token', key)
 
-            setToken(token)
+            setToken(key)
         } else {
 
             window.location.hash = ''
@@ -28,17 +33,23 @@ function App() {
     }, [])
 
     const [results, setResults] = useState([])
-  
-    return (
-        <div id={Style.mainDiv}>
-            {!token ? 
-            <div className={Style.textDiv}>
-                <h2>Create your own Spotify playlist with Jammming</h2>
-                <AuthBtn/>
+
+    if(!token) {
+
+        return (
+            <div id={Style.mainDiv}>
+                <div className={Style.textDiv}>
+                    <h2>Create your own Spotify playlist with Jammming</h2>
+                    <AuthBtn/>
+                </div>
             </div>
-            
-            :
-            <div id={Style.container}>
+        )
+
+    } else {
+
+        return (
+            <div id={Style.mainDiv}>
+                <div id={Style.container}>
                 <div className={Style.column}>
                     <SearchBar onResults={setResults}/>
                     <div className={Style.fullList}>
@@ -61,10 +72,10 @@ function App() {
                     <PlaylistsList/>
                 </div> 
             </div>
-            }
-        </div>
-            
-    )
+            </div>
+        )
+
+    }
 
 }
 

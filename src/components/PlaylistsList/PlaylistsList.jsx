@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Style from './PlaylistsList.module.css'
+import PlaylistsNav from "../PlaylistsNav/PlaylistsNav";
 
 function PlaylistsList() {
     const [playlists, setPlaylists] = useState([])
@@ -7,6 +8,7 @@ function PlaylistsList() {
     const [tracks, setTracks] = useState([]);
     const [playlistImg, setPlaylistImg] = useState('')
     const [playlistName, setPlaylistName] = useState('')
+    const [filterOption, setFilterOption] = useState('all')
     const token = localStorage.getItem('token')
 
     useEffect(() => {
@@ -99,21 +101,64 @@ function PlaylistsList() {
         setSelectedPlaylist(null);
     };
 
+    const handleChangeOption = (option) => {
+        setFilterOption(option)
+    }
+
+    const filteredPlaylists = () => {
+        let filter 
+        if (filterOption == 'all') {
+            filter = playlists.map(playlist => (
+                <li 
+                    onClick={() => handlePlaylistClick(playlist.id)} 
+                    key={playlist.id} 
+                    className={Style.playlistsItem}
+                >
+                    <img src={playlist.images ? playlist.images[0].url : 'https://static.vecteezy.com/system/resources/previews/007/126/739/non_2x/question-mark-icon-free-vector.jpg'} alt={playlist.name} />
+                    <h2>{playlist.name}</h2>
+                </li>
+            ))
+            return filter
+        } else if (filterOption == 'public') {
+            let filtered = playlists.filter(playlist => playlist.public === true)
+            filter = filtered.map(playlist => (
+                <li 
+                    onClick={() => handlePlaylistClick(playlist.id)} 
+                    key={playlist.id} 
+                    className={Style.playlistsItem}
+                >
+                    <img src={playlist.images ? playlist.images[0].url : 'https://static.vecteezy.com/system/resources/previews/007/126/739/non_2x/question-mark-icon-free-vector.jpg'} alt={playlist.name} />
+                    <h2>{playlist.name}</h2>
+                </li>
+            ))
+            return filter
+        } else {
+            let filtered = playlists.filter(playlist => playlist.public === false)
+            filter = filtered.map(playlist => (
+                <li 
+                    onClick={() => handlePlaylistClick(playlist.id)} 
+                    key={playlist.id} 
+                    className={Style.playlistsItem}
+                >
+                    <img src={playlist.images ? playlist.images[0].url : 'https://static.vecteezy.com/system/resources/previews/007/126/739/non_2x/question-mark-icon-free-vector.jpg'} alt={playlist.name} />
+                    <h2>{playlist.name}</h2>
+                </li>
+            ))
+            return filter
+        }
+    }
+    
     return (
         <div className={Style.topDiv}>
+            
             {!selectedPlaylist ? (
-                <ul className={Style.playlistsList}>
-                    {playlists.map(playlist => (
-                        <li 
-                            onClick={() => handlePlaylistClick(playlist.id)} 
-                            key={playlist.id} 
-                            className={Style.playlistsItem}
-                        >
-                            <img src={playlist.images[0]?.url} alt={playlist.name} />
-                            <h2>{playlist.name}</h2>
-                        </li>
-                    ))}
-                </ul>
+                <div>
+                    <PlaylistsNav onChangeOption={handleChangeOption}/>
+                    <ul className={Style.playlistsList}>
+                    {filteredPlaylists()}
+                    </ul>
+                </div>
+                
             ) : (
                 <div className={Style.topDiv}>
                     <button onClick={goBack} className={Style.backButton}>
