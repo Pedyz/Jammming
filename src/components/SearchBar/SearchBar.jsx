@@ -30,7 +30,7 @@ function SearchBar( {onResults} ) {
 
 
     return (
-        <input className={Styles.searchBar} onChange={searchItem}/>
+        <input placeholder='Search here' className={Styles.searchBar} onChange={searchItem}/>
     )
 }
 

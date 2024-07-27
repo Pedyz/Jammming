@@ -1,0 +1,43 @@
+.playlistsNav ul{
+    list-style: none;
+    display: flex;
+    margin-bottom: 5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.401);
+}
+
+.playlistsNav h2 {
+    font-size: 2rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.playlistsNav {
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    align-items: center;
+
+}
+
+.playlistsNav li {
+    font-size: 1.2rem;
+    padding: 5px 61px;
+    cursor: pointer;
+}
+
+.navLi {
+    border-bottom: 3px solid #00000000;
+    transition: background-color 0.5s, border-bottom 0.5s;
+}
+
+.navLi:hover {
+    background-color: #212121;
+    border-bottom: 3px solid white;
+    transition: background-color 0.5s, border-bottom 0.5s;
+}
+
+.selectedLi {
+    background-color: #212121;
+    border-bottom: 3px solid #ef233c;
+    transition: background-color 0.5s, border-bottom 0.5s;
+}
