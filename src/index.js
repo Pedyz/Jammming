@@ -8,11 +8,8 @@ const signInDivRoot = ReactDOM.createRoot(signInDiv)
 const rootDivEl = document.getElementById('root')
 const rootDiv = ReactDOM.createRoot(rootDivEl)
 
-const signInBtn = document.getElementById('signInBtn')
-
 rootDiv.render(<App/>)
 
 signInDivRoot.render(<AuthBtn/>)
-
 
 

@@ -27,10 +27,10 @@ function AuthBtn() {
 
     useEffect( () => {
 
-        if (window.localStorage.getItem('token') !== '') {
-            setToken(window.localStorage.getItem('token'))
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
         }
-
 
     },[])
     

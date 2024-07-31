@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import AuthBtn from './components/Auth/AuthBtn'
 import SearchBar from './components/SearchBar/SearchBar'
 import PlaylistsList from './components/PlaylistsList/PlaylistsList'
+import PlaylistCreation from './components/PlaylistCreation/PlaylistCreation'
 import Style from "./App.module.css"
 
 
@@ -10,7 +11,7 @@ function App() {
 
     useEffect(() => {
         const hash = window.location.hash
-        let key = window.localStorage.getItem('token')
+        let key = localStorage.getItem('token')
 
         if(key) {
             setToken(key)
@@ -22,7 +23,7 @@ function App() {
 
             window.location.hash = ''
             window.localStorage.setItem('token', key)
-
+            
             setToken(key)
         } else {
 
@@ -33,6 +34,16 @@ function App() {
     }, [])
 
     const [results, setResults] = useState([])
+
+    const [teste, setTeste] = useState(false)
+
+    const handleCreateBtn = (data) => {
+        setTeste(data)
+    }
+
+    const closeCreateWindow = (data) => {
+        setTeste(data)
+    }
 
     if(!token) {
 
@@ -49,6 +60,7 @@ function App() {
 
         return (
             <div id={Style.mainDiv}>
+                {teste ? <PlaylistCreation onCloseBtn={closeCreateWindow}/> : <></>}
                 <div id={Style.container}>
                 <div className={Style.column}>
                     <SearchBar onResults={setResults}/>
@@ -69,7 +81,7 @@ function App() {
                 </div>
 
                 <div className={Style.column}>
-                    <PlaylistsList/>
+                    <PlaylistsList onCreateBtn={handleCreateBtn} />
                 </div> 
             </div>
             </div>

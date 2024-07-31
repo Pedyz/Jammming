@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
+
+.container {
+    font-family: "Jost", sans-serif;
+    width: 100vw;
+    height: 91vh;
+    background-color: rgba(0, 0, 0, 0.43);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.creator {
+    background-color: #121212;
+    width: 500px;
+    height: 500px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+.creator h2 {
+    font-size: 2rem;
+    user-select: none;
+}
+
+.creator button {
+    font-family: "Jost", sans-serif;
+}
+
+.creator input, .description {
+    font-size: 1.25rem;
+    background-color: #00000000;
+    font-family: "Jost", sans-serif;
+    padding: 7px 15px;
+    border: none;
+    border-bottom: 1px solid rgb(187, 187, 187);
+    color: white;
+    width: 300px;
+    margin-bottom: 40px;
+    margin-top: 25px;
+    border-radius: 5px; 
+    text-align: center;
+    transition: border-bottom 1s, background-color 1s
+}
+
+.creator input:focus, .description:focus {
+    outline: none;
+    border-bottom: 1px solid #ef233c;
+    background-color: #212121;
+    transition: border-bottom 0.5s, background-color 0.5s;
+}
+
+.creator button {
+    padding: 6px 25px;
+    font-family: "Jost", sans-serif;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 1.25rem; 
+    cursor: pointer;
+    border: none;
+    transition: 1s background-color, 1s color
+}
+
+.creator button:hover {
+    background-color: #ef233c;
+    color: white;
+    transition: 0.5s background-color, 0.5s color;
+}
+
+.creator button:active {
+    background-color: #9c1525;
+    color: gray;
+    transition: 0s background-color, 0s color;
+}
+
+.description {
+    height: 100px;
+    resize: none;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 35px;
+    right: 35px;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 1px 8px;
+    border-radius: 50%;
+}
+
+.closeBtn:hover {
+    color: #ef233c;
+    background-color: white;
+    transition: 0.5s;
+}
