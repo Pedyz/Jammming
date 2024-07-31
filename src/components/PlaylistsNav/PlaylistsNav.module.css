@@ -11,6 +11,32 @@
     margin-bottom: 15px;
 }
 
+.playlistsNav h3 {
+    position: absolute;
+    right: 40px;
+    top: 37px;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 0 5px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    transition: border 0.5s, color 0.5s;
+}
+
+.playlistsNav h3:hover {
+    color: #ef233c;
+    border: 2px solid #ef233c;
+    transition: border 0.5s, color 0.5s;
+}
+
+.playlistsNav h3:active {
+    color: #a71829;
+    border: 2px solid #a71829;
+    transition: border 0s, color 0s;
+}
+
+
 .playlistsNav {
     display: flex;
     flex-direction: column;
