@@ -42,12 +42,14 @@
     flex-direction: column;
     user-select: none;
     align-items: center;
-
+    position: relative;
+    height: 130px;
+    top: 0px;
 }
 
 .playlistsNav li {
     font-size: 1.2rem;
-    padding: 5px 61px;
+    padding: 5px 62px;
     cursor: pointer;
 }
 
