@@ -53,9 +53,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: auto;
     font-family: "Jost", sans-serif;
     color: white;
+    overflow: auto;
     position: relative;
 }
 
@@ -89,6 +89,7 @@
     font-size: 1rem;
     display: flex;
     justify-content: start;
+    align-items: center;
     gap: 10px;
     margin-bottom: 15px;
     cursor: pointer;
@@ -107,10 +108,28 @@
     transition: background-color 0s;
 }
 
+.songBtn {
+    padding: 1px 7px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+    justify-self: end;
+    color: white;
+    background-color: #12121200;
+    border: 2px solid white;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 15px;
+    display: none;
+}
+
 .songTxt {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1;
 }
 
 .albumImg {

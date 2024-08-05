@@ -1,17 +1,32 @@
 import { useState, useEffect } from "react";
 import Style from './PlaylistsList.module.css'
 import PlaylistsNav from "../PlaylistsNav/PlaylistsNav";
-import PlaylistCreation from "../PlaylistCreation/PlaylistCreation";
 
-function PlaylistsList({ onCreateBtn }) {
+function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) {
     const [playlists, setPlaylists] = useState([])
     const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const [tracks, setTracks] = useState([]);
     const [playlistImg, setPlaylistImg] = useState('')
     const [playlistName, setPlaylistName] = useState('')
     const [filterOption, setFilterOption] = useState('all')
-    const [createdPlaylist, setCreatedPlaylist] = useState(false)
+    const [updateAgain, setUpdateAgain] = useState(false)
     const token = localStorage.getItem('token')
+
+    useEffect(() => {
+       if (needReloadList == false) {
+        getList().then(playlists => {
+            setPlaylists(playlists)
+        })
+       } 
+    },[needReloadList])
+
+    useEffect(() => {
+        if (needUpdate || updateAgain) {
+            fetchPlaylistTracks(selectedPlaylist).then(newTracks => {
+                setTracks(newTracks)
+            })
+        } 
+    }, [needUpdate, updateAgain])
 
     useEffect(() => {
         if (!selectedPlaylist) {
@@ -30,6 +45,7 @@ function PlaylistsList({ onCreateBtn }) {
                 setPlaylistName(data)
             })
         }
+
     }, [selectedPlaylist]);
 
     const getList = async () => {
@@ -100,11 +116,13 @@ function PlaylistsList({ onCreateBtn }) {
     }
 
     const handlePlaylistClick = (playlistId) => {
-        setSelectedPlaylist(playlistId);
+        setSelectedPlaylist(playlistId)
+        selectedId(playlistId)
     };
 
     const goBack = () => {
-        setSelectedPlaylist(null);
+        setSelectedPlaylist(null)
+        selectedId(null)
     };
 
     const handleChangeOption = (option) => {
@@ -156,19 +174,41 @@ function PlaylistsList({ onCreateBtn }) {
         }
         }
 
-        useEffect(() => {
-
-            if(createdPlaylist === true) {
-                getList().then(playlists => {
-                    setPlaylists(playlists);
-                });
-                setCreatedPlaylist(false)
-            }
-
-        }, [createdPlaylist])
-
         const handleUpdateList = (data) => {
             onCreateBtn(data)
+        }
+
+        const deleteTrack = async (e) => {
+            const trackUri = `spotify:track:${e.currentTarget.getAttribute('data-key')}`
+            try {
+                const response = await fetch(`https://api.spotify.com/v1/playlists/${selectedPlaylist}/tracks`,{
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        tracks: [
+                            {
+                                uri: trackUri
+                            }
+                        ]
+                    })
+                })
+
+                if (!response.ok) {
+                    window.alert(`You can't remove songs from this playlist!`)
+                }
+            
+                const data = await response.json()
+                setUpdateAgain(true)
+                setTimeout(() => {
+                    setUpdateAgain(false)
+                }, 100)
+                return data
+            } catch (error) {
+                console.log(error)
+            }
         }
         
     
@@ -177,13 +217,16 @@ function PlaylistsList({ onCreateBtn }) {
             {!selectedPlaylist ? (
                 <div>
                     <PlaylistsNav onPlaylistCreation={handleUpdateList} onChangeOption={handleChangeOption}/>
-                    <ul className={Style.playlistsList}>
-                    {filteredPlaylists()}
-                    </ul>
+                    <div className={Style.container}>
+                        <ul className={Style.playlistsList}>
+                            {filteredPlaylists()}
+                        </ul>
+                    </div>
+                    
                 </div>
                 
             ) : (
-                <div className={Style.topDiv}>
+                <div className={Style.topContainer}>
                     <button onClick={goBack} className={Style.backButton}>
                         Return
                     </button>
@@ -193,13 +236,13 @@ function PlaylistsList({ onCreateBtn }) {
                     {tracks.length > 0 ? (
                         <ul className={Style.tracksList}>
                             {tracks.map(track => (
-                                <li key={track.track.id} className={Style.tracksItem}>
+                                <li onClick={deleteTrack} data-key={track.track.id} key={track.track.id} className={Style.tracksItem}>
                                     <img src={track.track.album.images[0].url}/>
                                     <div className={Style.tracksTxt}>
                                         <h2>{track.track.name}</h2>
                                         <h3>{track.track.artists.map(artist => artist.name).join(', ')}</h3>
                                     </div>
-                                    
+                                    <button className={Style.removeBtn}>-</button>
                                 </li>
                             ))}
                         </ul>
