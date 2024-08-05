@@ -13,7 +13,8 @@ function AuthBtn() {
         const scopes = [
             'playlist-read-private',
             'playlist-modify-public',
-            'playlist-modify-private'
+            'playlist-modify-private',
+            'ugc-image-upload'
         ]
 
         window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${scopes.join('%20')}`

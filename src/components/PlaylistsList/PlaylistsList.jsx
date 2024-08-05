@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Style from './PlaylistsList.module.css'
 import PlaylistsNav from "../PlaylistsNav/PlaylistsNav";
+import EditButton from "../EditButton/EditButton";
 
 function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) {
     const [playlists, setPlaylists] = useState([])
@@ -8,6 +9,7 @@ function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) 
     const [tracks, setTracks] = useState([]);
     const [playlistImg, setPlaylistImg] = useState('')
     const [playlistName, setPlaylistName] = useState('')
+    const [playlistDescription, setPlaylistDescription] = useState('')
     const [filterOption, setFilterOption] = useState('all')
     const [updateAgain, setUpdateAgain] = useState(false)
     const token = localStorage.getItem('token')
@@ -43,6 +45,9 @@ function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) 
             })
             getPlaylistName(selectedPlaylist).then(data => {
                 setPlaylistName(data)
+            })
+            getPlaylistDescription(selectedPlaylist).then(description => {
+                setPlaylistDescription(description)
             })
         }
 
@@ -113,6 +118,22 @@ function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) 
             console.log(error)
         }
 
+    }
+
+    const getPlaylistDescription = async (key) => {
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${key}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const data = await response.json()
+            return data.description
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handlePlaylistClick = (playlistId) => {
@@ -210,7 +231,33 @@ function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) 
                 console.log(error)
             }
         }
+
+        const [reloadInfo, setReloadInfo] = useState(false)
         
+        const changeReloadInfo = (info) => {
+            setReloadInfo(info)
+        }
+
+        useEffect(() => {
+            if (reloadInfo) {
+                setTimeout(() => {
+                    fetchPlaylistTracks(selectedPlaylist).then(tracks => {
+                        setTracks(tracks);
+                    });
+                    getPlaylistImg(selectedPlaylist).then(img => {
+                        setPlaylistImg(img)
+                    })
+                    getPlaylistName(selectedPlaylist).then(data => {
+                        setPlaylistName(data)
+                    })
+                    getPlaylistDescription(selectedPlaylist).then(description => {
+                        setPlaylistDescription(description)
+                    })
+                    setReloadInfo(false)
+                }, 5000)
+                
+            }
+        }, [reloadInfo])
     
     return (
         <div className={Style.topDiv}>
@@ -230,8 +277,10 @@ function PlaylistsList({ needUpdate, needReloadList, onCreateBtn, selectedId }) 
                     <button onClick={goBack} className={Style.backButton}>
                         Return
                     </button>
+                    <EditButton reloadInfos={changeReloadInfo} playlistId={selectedPlaylist}/>
                     <img className={Style.playlistIcon} src={playlistImg ? playlistImg : 'https://static.vecteezy.com/system/resources/previews/007/126/739/non_2x/question-mark-icon-free-vector.jpg'}/>
-                    <input placeholder={playlistName} className={Style.nameInput}/>
+                    <h2 className={Style.trackName}>{playlistName}</h2>
+                    {playlistDescription ? <h2 className={Style.trackDescription}>{playlistDescription}</h2> : <></>}  
                     <h2 id={Style.trackH2}>Tracks</h2>
                     {tracks.length > 0 ? (
                         <ul className={Style.tracksList}>

@@ -103,18 +103,6 @@
     transition: 0.5s;
 }
 
-.backButton:hover {
-    background-color: #ef233c;
-    color: white;
-    transition: 0.5s;
-}
-
-.backButton:active {
-    background-color: #a21828;
-    color: gray;
-    transition: 0s;
-}
-
 .playlistIcon {
     width: 250px;
     height: 250px;
@@ -163,4 +151,23 @@
 
 .tracksTxt {
     flex: 1;
+}
+
+.trackName {
+    font-size: 1.8rem;
+    margin-top: 25px;
+    max-width: 400px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.trackDescription {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    background-color: #212121;
+    padding: 7px 15px;
+    border-radius: 5px;
+    max-width: 400px;
+    text-align: center;
+    font-weight: normal;
 }
